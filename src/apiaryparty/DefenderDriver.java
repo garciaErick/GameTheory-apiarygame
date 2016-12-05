@@ -1,5 +1,7 @@
+package apiaryparty;
+
 /**
- * Creates timed threads for the Player. Called by GameMaster when updating the player and getting the player's action.
+ * Creates timed threads for the Player. Called by apiaryparty.GameMaster when updating the player and getting the player's action.
  */
 public class DefenderDriver implements Runnable {
 	
@@ -13,8 +15,8 @@ public class DefenderDriver implements Runnable {
 
 	/**
 	 * Constructor used for Player's initialize() and makeAction() methods
-	 * @param state a PlayerState
-	 * @param defender a Defender
+	 * @param state a apiaryparty.PlayerState
+	 * @param defender a apiaryparty.Defender
 	 */
 	public DefenderDriver(PlayerState state, Defender defender){
 		this.state = state;
@@ -23,8 +25,8 @@ public class DefenderDriver implements Runnable {
 	
 	/**
 	 * Constructor used for Player's actionResult() method
-	 * @param state a PlayerState
-	 * @param defender a Defender
+	 * @param state a apiaryparty.PlayerState
+	 * @param defender a apiaryparty.Defender
 	 * @param success if successful
 	 */
 	public DefenderDriver(PlayerState state, Defender defender, boolean success){
@@ -34,8 +36,8 @@ public class DefenderDriver implements Runnable {
 	}
 	
 	/**
-	 * GameMaster will create a thread to run this class that will call a Defender's subclass'
-	 * methods. Any exceptions or time outs will only harm this thread and will not affect GameMaster
+	 * apiaryparty.GameMaster will create a thread to run this class that will call a apiaryparty.Defender's subclass'
+	 * methods. Any exceptions or time outs will only harm this thread and will not affect apiaryparty.GameMaster
 	 */
 	public void run() {
 		try{

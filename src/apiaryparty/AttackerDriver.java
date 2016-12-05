@@ -1,5 +1,7 @@
+package apiaryparty;
+
 /**
- * Creates timed threads for the Player. Called by GameMaster when updating the player and getting the player's action.
+ * Creates timed threads for the Player. Called by apiaryparty.GameMaster when updating the player and getting the player's action.
  */
 public class AttackerDriver implements Runnable {
 	
@@ -12,9 +14,9 @@ public class AttackerDriver implements Runnable {
 	
 	/**
 	 * Constructor used for Player's initialize(), makeAction(), and actionResult() methods
-	 * @param state a PlayerState
+	 * @param state a apiaryparty.PlayerState
 	 * @param attacker a Player
-	 * @param net  a Network
+	 * @param net  a apiaryparty.Network
 	 */
 	public AttackerDriver(PlayerState state, Attacker attacker, Network net){
 		this.state = state;
@@ -23,7 +25,7 @@ public class AttackerDriver implements Runnable {
 	}
 	/**
 	 * Constructor used for Player's initialize(), makeAction(), and actionResult() methods
-	 * @param state a PlayerState
+	 * @param state a apiaryparty.PlayerState
 	 * @param attacker a Player
 	 */
 	public AttackerDriver(PlayerState state, Attacker attacker){
@@ -32,8 +34,8 @@ public class AttackerDriver implements Runnable {
 	}
 	
 	/**
-	 * GameMaster will create a thread to run this class that will call a Attacker's subclass'
-	 * methods. Any exceptions or time outs will only harm this thread and will not affect GameMaster
+	 * apiaryparty.GameMaster will create a thread to run this class that will call a apiaryparty.Attacker's subclass'
+	 * methods. Any exceptions or time outs will only harm this thread and will not affect apiaryparty.GameMaster
 	 */
 	public void run() {
 		try{

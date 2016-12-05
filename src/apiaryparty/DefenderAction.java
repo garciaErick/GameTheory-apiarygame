@@ -1,5 +1,7 @@
+package apiaryparty;
+
 /**
- * Defender Action.
+ * apiaryparty.Defender Action.
  * You specify which action you want by calling the proper constructor
  */
 
@@ -95,10 +97,10 @@ public class DefenderAction {
 	 * @param hp the type of honeypot
 	 * @param neighbors array of node id's to connect to the honeypot
 	 */
-	/*public DefenderAction(HoneypotType hp, int[] neighbors){
+	/*public apiaryparty.DefenderAction(HoneypotType hp, int[] neighbors){
 		hpType = hp;
 		hpNeighbors = neighbors;
-		type = DefenderActionType.HONEYPOT;
+		type = apiaryparty.DefenderActionType.HONEYPOT;
 	}*/
 	
 	/**

@@ -1,7 +1,9 @@
+package apiaryparty;
+
 import java.util.Random;
 
 /**
- * Benchmark Defender that only adds database honeypots
+ * Benchmark apiaryparty.Defender that only adds database honeypots
  * @author Oscar Veliz
  */
 

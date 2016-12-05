@@ -1,3 +1,5 @@
+package apiaryparty;
+
 import java.util.Arrays;
 
 /**
@@ -291,6 +293,6 @@ public class Analyzer
         int[][] results = new int[2][3];
         results[0][0] = 9;results[0][1]=7;results[0][2]=6;
         results[1][0] = 2;results[1][1]=3;results[1][2]=6;
-        new Analyzer(results,aS,dS);
+        new apiaryparty.Analyzer(results,aS,dS);
     }*/
 }

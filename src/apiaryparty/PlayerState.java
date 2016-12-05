@@ -1,3 +1,5 @@
+package apiaryparty;
+
 /**
  * Auxiliary class that enumerates player states.
  */

@@ -1,8 +1,10 @@
+package apiaryparty;
+
 import java.util.ArrayList;
 
 /**
- * Node class is used for creating nodes for the network.
- * Important variables information for Attacker agents:
+ * apiaryparty.Node class is used for creating nodes for the network.
+ * Important variables information for apiaryparty.Attacker agents:
  * 
  * nodeId - integer representing the node
  * sv - security value of a node (-1 means unknown)
@@ -126,7 +128,7 @@ public class Node
 
 	/**
      * Returns the security value of the node
-     * If you are an Attacker trying to get the SV of a node you have not captured yet the value returned will be -1
+     * If you are an apiaryparty.Attacker trying to get the SV of a node you have not captured yet the value returned will be -1
      * @return the security value of the node
      */
 	public int getSv()
@@ -147,7 +149,7 @@ public class Node
 
 	/**
      * Returns the point value of the node
-     * If you are an Attacker trying to get the PV of a node you have not captured yet the value returned will be -1
+     * If you are an apiaryparty.Attacker trying to get the PV of a node you have not captured yet the value returned will be -1
      * @return the point value of the node
      */
 	public int getPv()
@@ -304,7 +306,7 @@ public class Node
 	/**
      * Returns the neighbor
      * @param idx the node index of the neighbors
-     * @return Node of idx
+     * @return apiaryparty.Node of idx
      */
 	public Node getNeighbor(int idx)
 	{
@@ -313,7 +315,7 @@ public class Node
 	
 	/**
      * Returns the neighbor
-     * @return Node of idx
+     * @return apiaryparty.Node of idx
      */
 	public ArrayList<Node> getNeighborList()
 	{
@@ -333,7 +335,7 @@ public class Node
 	}
 	
 	/**
-	 * Creates a copy of the Node, leaving empty the nodes. They need to be manually added!!!
+	 * Creates a copy of the apiaryparty.Node, leaving empty the nodes. They need to be manually added!!!
 	 */
 	public Node clone(){
 		Node n = new Node(nodeID, sv, pv, isDatabase, isHoneyPot, captured);

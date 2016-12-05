@@ -1,3 +1,5 @@
+package apiaryparty;
+
 /**
  * Defines constant variables used in simulation
  */
@@ -27,7 +29,7 @@ public class Parameters {
 
     /**The value that the defender gets for each node in a graph*/
     public static final int DEFENDER_RATE = 10;
-    /**Defender's Budget*/
+    /**apiaryparty.Defender's Budget*/
     public static final int DEFENDER_BUDGET = DEFENDER_RATE * NUMBER_OF_NODES;
     /**The cost to strengthen a node*/
     public static final int STRENGTHEN_RATE = 7;
@@ -54,6 +56,6 @@ public class Parameters {
     public static final int PROBE_HONEY_RATE = 1;
     /**Penalty for successfully capturing a honey pot*/
     public static final int HONEY_PENALTY = -10;
-    /**Attacker's Budget*/
+    /**apiaryparty.Attacker's Budget*/
     public static final int ATTACKER_BUDGET = ATTACK_RATE * NUMBER_OF_NODES;
 }

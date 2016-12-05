@@ -1,12 +1,14 @@
+package apiaryparty;
+
 import java.util.ArrayList;
 
 /**
- * Pits Attacker and Defender agents against one another in the name of Science!
+ * Pits apiaryparty.Attacker and apiaryparty.Defender agents against one another in the name of Science!
  * 
  * STUDENTS: add your defenders and attackers to the sections in main that say
  * "add defenders here" and "add attackers here" Also add your defender to the
  * method getDefenderByName() and your attacker to getAttackerByName() You may
- * also edit the rates in the Parameters class. Trust that these rates will be
+ * also edit the rates in the apiaryparty.Parameters class. Trust that these rates will be
  * changed when the full tournament is run.
  * 
  * @author Marcus Gutierrez, Oscar Veliz, Porag Chowdhury, Anjon Basak
@@ -140,9 +142,9 @@ public class GameMaster {
 	 * @return your defender
 	 */
 	public static Defender getDefender(String name, String file) {
-		if (name.equalsIgnoreCase("WorkerBee"))
+		if (name.equalsIgnoreCase("apiaryparty.WorkerBee"))
 			return new WorkerBee(file);
-		if (name.equalsIgnoreCase("Honeycomb"))
+		if (name.equalsIgnoreCase("apiaryparty.Honeycomb"))
 			return new Honeycomb(file);
 		if (name.equalsIgnoreCase("QeenDBee"))
 			return new QueenDBee(file);
@@ -171,13 +173,13 @@ public class GameMaster {
 	 */
 	public static Attacker getAttacker(String defName, String atName,
 			String file) {
-		if (atName.equalsIgnoreCase("GreenHornet"))
+		if (atName.equalsIgnoreCase("apiaryparty.GreenHornet"))
 			return new GreenHornet(defName, file);
 		if (atName.equalsIgnoreCase("BumbeBeeMan"))
 			return new BumbleBeeMan(defName, file);
-		if (atName.equalsIgnoreCase("Beedrill"))
+		if (atName.equalsIgnoreCase("apiaryparty.Beedrill"))
 			return new Beedrill(defName, file);
-		if (atName.equalsIgnoreCase("YellowJacket"))
+		if (atName.equalsIgnoreCase("apiaryparty.YellowJacket"))
 			return new YellowJacket(defName, file);
 
 		// add your attacker here
@@ -193,8 +195,8 @@ public class GameMaster {
 	}
 	
 	/**
-	 * Tries to execute a Defender's class' method by using threads a layer of protection in case
-	 * the Defender subclasses crash or time out.
+	 * Tries to execute a apiaryparty.Defender's class' method by using threads a layer of protection in case
+	 * the apiaryparty.Defender subclasses crash or time out.
 	 * 
 	 * @param dDriver The thread that will ask the player to execute some code
 	 */
@@ -218,8 +220,8 @@ public class GameMaster {
 	}
 	
 	/**
-	 * Tries to execute an Attacker's class' method by using threads a layer of protection in case
-	 * the Defender subclasses crash or time out.
+	 * Tries to execute an apiaryparty.Attacker's class' method by using threads a layer of protection in case
+	 * the apiaryparty.Defender subclasses crash or time out.
 	 * 
 	 * @param aDriver The thread that will ask the player to execute some code
 	 */

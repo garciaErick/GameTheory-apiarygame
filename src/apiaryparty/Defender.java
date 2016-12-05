@@ -1,7 +1,9 @@
+package apiaryparty;
+
 import java.util.Random;
 
 /**
- * Defender agent. The actions for the defender in this game include strengthening nodes, adding firewalls, and adding honeypots.
+ * apiaryparty.Defender agent. The actions for the defender in this game include strengthening nodes, adding firewalls, and adding honeypots.
  * All logic/equations/formulas/etc for how your defender decides to select actions should be included in makeAction()
  */
 public abstract class Defender
@@ -13,10 +15,10 @@ public abstract class Defender
     private DefenderAction lastAction;
     /**
      * Constructor.
-     * Parses Network stored in graphFile.
-     * Performs Defender logic to select actions.
+     * Parses apiaryparty.Network stored in graphFile.
+     * Performs apiaryparty.Defender logic to select actions.
      * Outputs [agentName]-[graphFile].defense with selected actions
-     * @param agentName Defender agent's name i.e. "Miners"
+     * @param agentName apiaryparty.Defender agent's name i.e. "Miners"
      * @param graphFile String containing number of network i.e. "1914"
      */
     public Defender(String agentName, String graphFile)
@@ -33,7 +35,7 @@ public abstract class Defender
     public abstract void initialize();
     
     /**
-     * GameMaster uses this method to determine the last action of the player
+     * apiaryparty.GameMaster uses this method to determine the last action of the player
      * @return last action the player has made
      */
     public DefenderAction getLastAction(){
@@ -142,7 +144,7 @@ public abstract class Defender
     }
 
     /**
-     * Get Agent Name used by GameMaster.
+     * Get Agent Name used by apiaryparty.GameMaster.
      * @return Name of defender
      */
     public final String getName()
@@ -151,7 +153,7 @@ public abstract class Defender
     }
 
     /**
-     * Get Game used by GameMaster
+     * Get Game used by apiaryparty.GameMaster
      * @return graph number
      */
     public final String getGraph()
@@ -160,7 +162,7 @@ public abstract class Defender
     }
 
     /**
-     * Defender logic goes here
+     * apiaryparty.Defender logic goes here
      * @return the action
      */
     public abstract DefenderAction makeAction();
@@ -190,15 +192,15 @@ public abstract class Defender
     	return net.getNode(honeyNode).getPv() + Parameters.HONEYPOT_RATE;
     	/*switch(ht){
     		case NETWORKED_CONVIENCE:
-    			return Parameters.HONEYPOT_RATE;
+    			return apiaryparty.Parameters.HONEYPOT_RATE;
     		case PERSONAL_DEVICE:
-    			return Parameters.HONEYPOT_RATE*2;
+    			return apiaryparty.Parameters.HONEYPOT_RATE*2;
     		case SECURED_DEVICE:
-    			return Parameters.HONEYPOT_RATE*3;
+    			return apiaryparty.Parameters.HONEYPOT_RATE*3;
     		case DATABASE:
-    			return Parameters.HONEYPOT_RATE*5;
+    			return apiaryparty.Parameters.HONEYPOT_RATE*5;
     		default:
-    			return Parameters.INVALID_RATE;
+    			return apiaryparty.Parameters.INVALID_RATE;
     			
     	}*/
     }

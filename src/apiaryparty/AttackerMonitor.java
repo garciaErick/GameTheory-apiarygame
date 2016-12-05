@@ -1,3 +1,5 @@
+package apiaryparty;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,11 +8,11 @@ import java.util.Random;
 
 /**
  * Auxiliary class for creating and parsing .attack files.
- * Attacker will use the three parameter constructor and combination of the two attack methods and the four probe methods
- * to generate an .attack file. Have Attacker remember to call close() when finished for safety.
+ * apiaryparty.Attacker will use the three parameter constructor and combination of the two attack methods and the four probe methods
+ * to generate an .attack file. Have apiaryparty.Attacker remember to call close() when finished for safety.
  * Game Master will use the two parameter constructor for parsing original network and attacker file to generate the attacker's visible network and history.
  *
- * Actions deemed invalid will be charged the Parameters.INVALID_RATE value.
+ * Actions deemed invalid will be charged the apiaryparty.Parameters.INVALID_RATE value.
  *
  * @author      Marcus Gutierrez
  * @version		2014/11/14
@@ -93,7 +95,7 @@ public class AttackerMonitor
 						visibleNet.getNode(id).setHoneyPot(n.getHoneyPot());
 						visibleNet.getNode(id).setCaptured(true);
 						if(visibleNet.getNode(id).isHoneyPot()){
-							//points += Parameters.HONEY_PENALTY;
+							//points += apiaryparty.Parameters.HONEY_PENALTY;
 							//points -= visibleNet.getNode(id).getPv();
 							budget = 0;
 							System.out.println("attack on node " + id + " triggered a honeypot with a roll of " + attackRoll + "! Ending round.");
@@ -135,7 +137,7 @@ public class AttackerMonitor
 						visibleNet.getNode(id).setHoneyPot(n.getHoneyPot());
 						visibleNet.getNode(id).setCaptured(true);
 						if(visibleNet.getNode(id).isHoneyPot()){
-							//points += Parameters.HONEY_PENALTY;
+							//points += apiaryparty.Parameters.HONEY_PENALTY;
 							//points -= visibleNet.getNode(id).getPv();
 							budget = 0;
 							System.out.println("super attack on node " + id + " triggered a honeypot with a roll of " + attackRoll + "! Ending round.");
@@ -220,7 +222,7 @@ public class AttackerMonitor
 	}
 
 	/**
-	 * Attacker should call this method when done adding actions.
+	 * apiaryparty.Attacker should call this method when done adding actions.
 	 */
 	public void close()
 	{

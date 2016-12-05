@@ -1,5 +1,7 @@
+package apiaryparty;
+
 /**
- * Benchmark Defender Agent that does nothing to secure the network
+ * Benchmark apiaryparty.Defender Agent that does nothing to secure the network
  * @author Oscar Veliz
  */
 
@@ -8,7 +10,7 @@ public class Honeycomb extends Defender{
 	
 	   public Honeycomb(String graphFile)
 	    {
-	        super("Honeycomb",graphFile);
+	        super("apiaryparty.Honeycomb",graphFile);
 	    }
 
 	   @Override

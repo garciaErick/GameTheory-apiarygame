@@ -11,11 +11,11 @@ import java.util.*;
 
 /**
  * Auxiliary class for creating and parsing defense files.
- * Defender will use the three parameter constructor and combination of strengthen(), firewall, and honeypot()
- * to generate defense file. Have Defender remember to call close() when finished for safety.
+ * apiaryparty.Defender will use the three parameter constructor and combination of strengthen(), firewall, and honeypot()
+ * to generate defense file. Have apiaryparty.Defender remember to call close() when finished for safety.
  * Game Master will use the two parameter constructor for parsing original network and defense file to generate new network.
  *
- * Actions deemed invalid will be charged the Parameters.INVALID_RATE value.
+ * Actions deemed invalid will be charged the apiaryparty.Parameters.INVALID_RATE value.
  *
  * @author      Oscar Veliz
  * @version     2014/11/01
@@ -29,7 +29,7 @@ public class DefenderMonitor
     private int budget;
 
     /**
-     * Constructor used by Defender to initialize defense file and keep track of network changes.
+     * Constructor used by apiaryparty.Defender to initialize defense file and keep track of network changes.
      * @param network Graph being secured given a budget
      * @param graphFile Contains original name of graph i.e. "1" for 1.graph
      * @param defenderName Name of defender will be prepended to defense file i.e. "tower" for tower-1.defense
@@ -49,7 +49,7 @@ public class DefenderMonitor
         }
     }
     /**
-     * Constructor used by Defender to initialize defense file and keep track of network changes.
+     * Constructor used by apiaryparty.Defender to initialize defense file and keep track of network changes.
      * @param defenderName defender name
      * @param graphFile Contains original name of graph i.e. "1" for 1.graph
      * @param actions the actions made
@@ -77,7 +77,7 @@ public class DefenderMonitor
     }
 
     /**
-     * Constructor used by GameMaster to create new secured graph based on Defender's defense actions.
+     * Constructor used by apiaryparty.GameMaster to create new secured graph based on apiaryparty.Defender's defense actions.
      * @param defenderName Name of defender prepended to defense file i.e. "tower" for tower-1.defense
      * @param graphFile Contains original name of graph i.e. "1" for 1.graph
      */
@@ -234,7 +234,7 @@ public class DefenderMonitor
     }
 
     /**
-     * Defender should call this method when done adding actions.
+     * apiaryparty.Defender should call this method when done adding actions.
      */
     public void close()
     {
@@ -457,15 +457,15 @@ public class DefenderMonitor
     	return net.getNode(honeyNode).getPv() + Parameters.HONEYPOT_RATE;
     	/*switch(ht){
     		case NETWORKED_CONVIENCE:
-    			return Parameters.HONEYPOT_RATE;
+    			return apiaryparty.Parameters.HONEYPOT_RATE;
     		case PERSONAL_DEVICE:
-    			return Parameters.HONEYPOT_RATE*2;
+    			return apiaryparty.Parameters.HONEYPOT_RATE*2;
     		case SECURED_DEVICE:
-    			return Parameters.HONEYPOT_RATE*3;
+    			return apiaryparty.Parameters.HONEYPOT_RATE*3;
     		case DATABASE:
-    			return Parameters.HONEYPOT_RATE*5;
+    			return apiaryparty.Parameters.HONEYPOT_RATE*5;
     		default:
-    			return Parameters.INVALID_RATE;
+    			return apiaryparty.Parameters.INVALID_RATE;
     			
     	}*/
     }

@@ -1,7 +1,9 @@
+package apiaryparty;
+
 import java.util.ArrayList;
 
 /**
- * Attacker agent. The actions for the attacker in this game include attacking a node, super attacking a node, 
+ * apiaryparty.Attacker agent. The actions for the attacker in this game include attacking a node, super attacking a node,
  * probing for security values of a node, probing for the point value of a node, probing number of connections, and probing for honey pots.
  * All logic/equations/formulas/etc for how your attacker decides to select actions should be included in makeAction()
  * @author Marcus Gutierrez
@@ -22,11 +24,11 @@ public abstract class Attacker{
 
     /**
      * Constructor.
-     * Parses Network stored in graphFile.
-     * Performs Attacker logic to select actions.
+     * Parses apiaryparty.Network stored in graphFile.
+     * Performs apiaryparty.Attacker logic to select actions.
      * Outputs [agentName]-[graphFile].attack with selected actions
-     * @param agentName Attacker agent's name i.e. "Sharks"
-     * @param defenderName Defender agent's name i.e. "Jets"
+     * @param agentName apiaryparty.Attacker agent's name i.e. "Sharks"
+     * @param defenderName apiaryparty.Defender agent's name i.e. "Jets"
      * @param graphName String containing number of visibility network i.e. "1914"
      */
     public Attacker(String agentName, String defenderName, String graphName){
@@ -164,7 +166,7 @@ public abstract class Attacker{
     protected abstract void result(Node lastNode);
 
     /**
-     * Get Agent Name used by GameMaster.
+     * Get Agent Name used by apiaryparty.GameMaster.
      * @return Name of defender
      */
     public String getName()
@@ -173,7 +175,7 @@ public abstract class Attacker{
     }
 
     /**
-     * Get Game used by GameMaster
+     * Get Game used by apiaryparty.GameMaster
      * @return graph number
      */
     public final String getGraph()

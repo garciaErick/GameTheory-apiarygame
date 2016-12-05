@@ -1,10 +1,12 @@
+package apiaryparty;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 /**
- * Network class is use for generating a network.
+ * apiaryparty.Network class is use for generating a network.
  * Game master will use this class to generate a network. 
  *
  * @author      Porag Chowdhury, Anjon Basak
@@ -163,7 +165,7 @@ public class Network {
 	 */
 	public void printHiddenNetwork()
 	{
-		//ArrayList<Node> captured = getCapturedNodes();
+		//ArrayList<apiaryparty.Node> captured = getCapturedNodes();
 		//System.out.println("Captured: " + captured.size());
 		PrintWriter writer;
 		try {
@@ -297,7 +299,7 @@ public class Network {
 	 */
 	public void generateNetwork()
 	{
-		//Network network = new Network(networkName, numNodes);
+		//apiaryparty.Network network = new apiaryparty.Network(networkName, numNodes);
 		Random r = new Random(name);
 		int [][] adjacencyMatrix = new int[Parameters.NUMBER_OF_NODES][Parameters.NUMBER_OF_NODES];
 		for(int i =0; i<nodes.length; i++)
@@ -458,7 +460,7 @@ public class Network {
 			{
 				//add some random neighbor
 				int neighborcounter = 0;
-				//System.out.println("Node "+ i +" has no neighbor");
+				//System.out.println("apiaryparty.Node "+ i +" has no neighbor");
 				Random rand = new Random();
 				while(true)
 				{

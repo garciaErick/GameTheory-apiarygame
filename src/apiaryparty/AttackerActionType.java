@@ -1,3 +1,5 @@
+package apiaryparty;
+
 public enum AttackerActionType {
 
 	ATTACK,

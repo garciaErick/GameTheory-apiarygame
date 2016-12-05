@@ -1,3 +1,5 @@
+package apiaryparty;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,7 +10,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 /**
- * Used for reading Network graphs from files
+ * Used for reading apiaryparty.Network graphs from files
  */
 public class Parser
 {
@@ -17,7 +19,7 @@ public class Parser
 	 * Given a .graph file, a network is generated following a predetermined format
 	 * 
 	 * @param filename the file name
-	 * @return a Network object based on the .graph file given
+	 * @return a apiaryparty.Network object based on the .graph file given
 	 */
 	public static Network parseGraph(String filename)
 	{
@@ -120,7 +122,7 @@ public class Parser
 				int hp;
 				switch(move){
 				case 0: //attack
-					//budget -= Parameters.ATTACK_RATE;
+					//budget -= apiaryparty.Parameters.ATTACK_RATE;
 					id = Integer.parseInt(itr.next());
 					node = hidden.getNode(id);
 					attackSuccess = Boolean.parseBoolean(itr.next());
@@ -145,7 +147,7 @@ public class Parser
 					}
 					break;
 				case 1: //superattack
-					//budget -= Parameters.SUPERATTACK_RATE;
+					//budget -= apiaryparty.Parameters.SUPERATTACK_RATE;
 					id = Integer.parseInt(itr.next());
 					node = hidden.getNode(id);
 					attackSuccess = Boolean.parseBoolean(itr.next());
@@ -171,7 +173,7 @@ public class Parser
 					}
 					break;
 				case 2: //probe values
-					//budget -= Parameters.PROBE_SECURITY_RATE;
+					//budget -= apiaryparty.Parameters.PROBE_SECURITY_RATE;
 					id = Integer.parseInt(itr.next());
 					node = hidden.getNode(id);
 					pv = Integer.parseInt(itr.next());
@@ -180,7 +182,7 @@ public class Parser
 					node.setSv(sv);
 					break;
 				case 3: //probe honeypot
-					//budget -= Parameters.PROBE_HONEY_RATE;
+					//budget -= apiaryparty.Parameters.PROBE_HONEY_RATE;
 					id = Integer.parseInt(itr.next());
 					node = hidden.getNode(id);
 					hp = Integer.parseInt(itr.next());
@@ -195,7 +197,7 @@ public class Parser
 					//	node.addNeighbor(hidden.getNode(Integer.parseInt(itr.next())));
 					break;
 				case -1: default:
-					//budget -= Parameters.INVALID_RATE;
+					//budget -= apiaryparty.Parameters.INVALID_RATE;
 					break;
 				}
 			}

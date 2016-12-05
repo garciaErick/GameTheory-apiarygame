@@ -1,7 +1,9 @@
+package apiaryparty;
+
 import java.util.Random;
 
 /**
- * Example Defender Agent that strengthens at random
+ * Example apiaryparty.Defender Agent that strengthens at random
  * @author Porag Chowdhury
  */
 public class WorkerBee extends Defender
@@ -11,7 +13,7 @@ public class WorkerBee extends Defender
 	
     public WorkerBee(String graphFile)
     {
-        super("WorkerBee",graphFile);
+        super("apiaryparty.WorkerBee",graphFile);
     }
 
 	@Override

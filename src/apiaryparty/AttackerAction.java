@@ -1,3 +1,5 @@
+package apiaryparty;
+
 /**
  * Contains move type and node ID of an attacker action
  * 
