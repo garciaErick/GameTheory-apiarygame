@@ -7,11 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.File;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Auxiliary class for creating and parsing defense files.
