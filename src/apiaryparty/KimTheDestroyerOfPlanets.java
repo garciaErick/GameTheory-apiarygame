@@ -14,6 +14,19 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 	 * @param defenderName defender's name
 	 * @param graphFile graph to read
 	 */
+
+	/**
+	 *
+	 * @param defenderName
+	 * @param graphFile
+	 * 1) Compare number of actual nodes with nodes in parameters
+	 * 		if number of actual nodes > nodes in parameters there is probably honeypots
+	 * 			if probe honeypot is viable
+	 * 				probe honeypot around highest SV values
+	 * 2) Retrieve Strengthening node rate
+	 * 		if strengthening cost is higher
+	 */
+
 	public KimTheDestroyerOfPlanets(String defenderName, String graphFile) {
 		super(attackerName, defenderName, graphFile);
 	}
@@ -42,6 +55,23 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 		return availableNodes.size() > Parameters.MAX_NEIGHBORS;
 	}
 
+
+
+	private boolean isProbingViable() {
+		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_POINTS_RATE;
+	}
+
+	private boolean isProbingInexpensive() {
+		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_POINTS_RATE;
+	}
+
+	private boolean isHoneyProbingViable() {
+		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_HONEY_RATE;
+	}
+
+	private boolean isHoneyProbingInexpensive() {
+		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_HONEY_RATE;
+	}
 
 
 	@Override
