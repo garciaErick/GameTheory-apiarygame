@@ -9,11 +9,8 @@ import java.util.Random;
 @SuppressWarnings("Duplicates")
 public class DaiGurrenLagan extends Defender {
 	Random r;
-	boolean doneProtectingDBs;
-	boolean doneAddingHoneyCombs;
 	boolean isHoneyPotViable;
 	boolean isFirewallViable;
-	boolean isStrengtheningViable;
 	int costSpentInFirewalls;
 	int costSpentHoneyCombs;
 
@@ -26,6 +23,7 @@ public class DaiGurrenLagan extends Defender {
 	public void initialize() {
 		r = new Random();
 		isHoneyPotViable = isHoneyPotViable();
+		isFirewallViable = isFirewallViable();
 		costSpentInFirewalls = 0;
 		costSpentHoneyCombs = 0;
 	}
@@ -97,9 +95,6 @@ public class DaiGurrenLagan extends Defender {
 		return (Parameters.DEFENDER_BUDGET / 4) >= Parameters.FIREWALL_RATE;
 	}
 
-	private boolean isProbingViable() {
-		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_POINTS_RATE;
-	}
 
 	private boolean isProbingInexpensive() {
 		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_POINTS_RATE;

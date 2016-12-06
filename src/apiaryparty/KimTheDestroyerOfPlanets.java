@@ -37,6 +37,12 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 	public boolean honeyPotExists() {
 		return net.getSize() > Parameters.NUMBER_OF_NODES;
 	}
+	//TODO: check if correct
+	public boolean isOneOfNeighborsHoneyPot(){
+		return availableNodes.size() > Parameters.MAX_NEIGHBORS;
+	}
+
+
 
 	@Override
 	protected void result(Node lastNode) {
