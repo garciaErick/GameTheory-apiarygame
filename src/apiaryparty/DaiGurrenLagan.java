@@ -1,7 +1,5 @@
 package apiaryparty;
 
-import com.sun.xml.internal.rngom.digested.DDataPattern;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -93,19 +91,6 @@ public class DaiGurrenLagan extends Defender {
 
 	private boolean isFirewallViable() {
 		return (Parameters.DEFENDER_BUDGET / 4) >= Parameters.FIREWALL_RATE;
-	}
-
-
-	private boolean isProbingInexpensive() {
-		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_POINTS_RATE;
-	}
-
-	private boolean isHoneyProbingViable() {
-		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_HONEY_RATE;
-	}
-
-	private boolean isHoneyProbingInexpensive() {
-		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_HONEY_RATE;
 	}
 
 	private boolean doneProtectingDbs(int costSpentInFirewalls) {
