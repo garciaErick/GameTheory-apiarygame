@@ -15,6 +15,7 @@ public class DaiGurrenLagan extends Defender {
 	boolean isFirewallViable;
 	boolean isStrengtheningViable;
 	int costSpentInFirewalls;
+	int costSpentHoneyCombs;
 
 
 	public DaiGurrenLagan(String graphFile) {
@@ -26,6 +27,7 @@ public class DaiGurrenLagan extends Defender {
 		r = new Random();
 		isHoneyPotViable = isHoneyPotViable();
 		costSpentInFirewalls = 0;
+		costSpentHoneyCombs = 0;
 	}
 
 	@Override
@@ -49,28 +51,21 @@ public class DaiGurrenLagan extends Defender {
 		if (isFirewallViable) {
 			for (int dbNodeID : getDBNodeIds()) {
 				Node dbNode = net.getNode(dbNodeID);
-				if (dbNode.getNeighborAmount() >= Parameters.MIN_NEIGHBORS || doneProtectingDbs(costSpentInFirewalls)) {
+				if (dbNode.getNeighborAmount() >= Parameters.MIN_NEIGHBORS || !doneProtectingDbs(costSpentInFirewalls)) {
 					costSpentInFirewalls += Parameters.FIREWALL_RATE;
 					//Insert a firewall between DB and one of its neighboors
 					return new DefenderAction(dbNode.getNodeID(), dbNode.neighbor.get(0).getNodeID());
 				}
 			}
-
-
 		} else if (isHoneyPotViable) {
-			while (!doneAddingHoneyCombs) {
-				//TODO:
+			if(!doneAddingHoneyCombs(costSpentHoneyCombs)) {
+				costSpentHoneyCombs += Parameters.HONEYPOT_RATE;
+				Random r = new Random();
+				int honeyNode = r.nextInt(net.getAvailableNodes().size());
 				return new DefenderAction(DefenderActionType.HONEYPOT, honeyNode);
 			}
-			Random r = new Random();
-			int honeyNode = r.nextInt(net.getAvailableNodes().size());
-			int honeypotCost = honeypotCost(honeyNode);
-			if (getBudget() < honeypotCost) {
-				return new DefenderAction(DefenderActionType.INVALID);
-			}
-			return new DefenderAction(DefenderActionType.HONEYPOT, honeyNode);
 		} else {
-			while (getBudget() <= Parameters.STRENGTHEN_RATE) {
+			if (getBudget() <= Parameters.STRENGTHEN_RATE || getBudget() < Parameters.STRENGTHEN_RATE) {
 				//TODO:
 				return new DefenderAction(DefenderActionType.STRENGTHEN, valuableNode);
 			}
