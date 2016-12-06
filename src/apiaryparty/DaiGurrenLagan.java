@@ -97,21 +97,6 @@ public class DaiGurrenLagan extends Defender {
 		return (Parameters.DEFENDER_BUDGET / 4) >= Parameters.FIREWALL_RATE;
 	}
 
-	private boolean isProbingViable() {
-		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_POINTS_RATE;
-	}
-
-	private boolean isProbingInexpensive() {
-		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_POINTS_RATE;
-	}
-
-	private boolean isHoneyProbingViable() {
-		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_HONEY_RATE;
-	}
-
-	private boolean isHoneyProbingInexpensive() {
-		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_HONEY_RATE;
-	}
 
 	private boolean doneProtectingDbs(int costSpentInFirewalls) {
 		return Parameters.DEFENDER_BUDGET / 4 == costSpentInFirewalls || (Parameters.DEFENDER_BUDGET / 4) % costSpentInFirewalls < Parameters.FIREWALL_RATE;
