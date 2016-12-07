@@ -186,7 +186,7 @@ public class GameMaster {
 		if (atName.equalsIgnoreCase("apiaryparty.YellowJacket"))
 			return new YellowJacket(defName, file);
 		if (atName.equalsIgnoreCase("KimTheDestroyerOfPlanets"))
-			return new GreenHornet(defName, file);
+			return new KimTheDestroyerOfPlanets(defName, file);
 
 		// add your attacker here
 

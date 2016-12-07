@@ -55,7 +55,6 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
 	@Override
 	public AttackerAction makeAction() {
-
 		while (getDBNodeIds().size() != 0 && isSuperAttackViable() && doneDoingSuperAttacks(costSpentInSuperAttacks)) {
 			if (honeyPotExists() && !probedDB) {
 				probedDB = true;
