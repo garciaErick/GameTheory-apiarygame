@@ -55,6 +55,7 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
 	@Override
 	public AttackerAction makeAction() {
+
 		while (getDBNodeIds().size() != 0 && isSuperAttackViable() && doneDoingSuperAttacks(costSpentInSuperAttacks)) {
 			if (honeyPotExists() && !probedDB) {
 				probedDB = true;
@@ -72,16 +73,19 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 		 * not be worth it
 		 **/
 		//TODO: check if sorting is correct
-		List<Node> availableNodes = net.getAvailableNodes();
 		List<Node> availableNodesSorted = sortNodesDescending(availableNodes);
 
-		for (Node n : availableNodesSorted)
-			if (3 * Parameters.ATTACK_ROLL / 4 >= n.getSv() && n.getSv() >= Parameters.ATTACK_ROLL / 2)
+		for (Node n : availableNodesSorted) {
+			if (3 * Parameters.ATTACK_ROLL / 4 >= n.getSv() && n.getSv() >= Parameters.ATTACK_ROLL / 2 && !n.isCaptured()) {
+				System.out.println("Is captured: " + n.isCaptured());
 				return new AttackerAction(AttackerActionType.ATTACK, n.getNodeID());
+			}
+		}
 
-		for (Node n : availableNodesSorted)
+		for (Node n : availableNodesSorted) {
 			if (n.getSv() <= Parameters.ATTACK_ROLL / 2)
 				return new AttackerAction(AttackerActionType.ATTACK, n.getNodeID());
+		}
 
 		for (Node n : availableNodesSorted) {
 			if (3 * Parameters.ATTACK_ROLL / 4 <= n.getSv() && doneDoingSuperAttacks(costSpentInSuperAttacks)) {
@@ -129,7 +133,8 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 	}
 
 	private boolean doneDoingSuperAttacks(int costSpentInSuperAttacks) {
-		return Parameters.ATTACKER_BUDGET / 4 == costSpentInSuperAttacks || (Parameters.ATTACKER_BUDGET / 4) % costSpentInSuperAttacks < Parameters.SUPERATTACK_RATE;
+		return costSpentInSuperAttacks != 0 && (Parameters.ATTACKER_BUDGET / 4 == costSpentInSuperAttacks || (Parameters.ATTACKER_BUDGET / 4) % costSpentInSuperAttacks < Parameters.SUPERATTACK_RATE);
+
 	}
 
 	private List<Integer> getDBNodeIds() {
