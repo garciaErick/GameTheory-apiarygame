@@ -35,6 +35,10 @@ public class KimTheDestroyerOfPlanets extends Attacker {
      * probe PV if true super attack
      * <p>
      * GOAL: gain maximum points as possible without falling in honeypot. attempt to get DB.
+     *
+     * is database
+     *
+     *
      */
 
     public KimTheDestroyerOfPlanets(String defenderName, String graphFile) {
@@ -56,9 +60,17 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
         if (availableNodes.size() == 0)
             return new AttackerAction(AttackerActionType.INVALID, 0);
+
+        if (getDBNodeIds().size() == 0 ) { //There are no DB nodes available
+            List<Integer> dbNodeIDs = getDBNodeIds();
+        }
+        else {
+            availableNodes.sor
+        }
+
         int nodeID = availableNodes.get(r.nextInt(availableNodes.size())).getNodeID();
         //TODO: decide which node to attack before evaluating for honeypot
-        Node target = net.getNode(0);
+        Node target = net.getNode();
         if (honeyPotExists())
             for (Node n : target.getNeighborList()) {
                 if (areNodesSimilar(target, n))
@@ -67,24 +79,29 @@ public class KimTheDestroyerOfPlanets extends Attacker {
         else
             return new AttackerAction(AttackerActionType.ATTACK, target.getNodeID());
 
-        if (Parameters.STRENGTHEN_RATE >= (Parameters.DEFENDER_BUDGET)/4) {
+        if (Parameters.STRENGTHEN_RATE >= (Parameters.DEFENDER_BUDGET) / 4) {
+            //TODO
             return new AttackerAction(AttackerActionType.ATTACK, target.getNodeID());
-        }
-        else {
-          //  if (isProbingViable()) {
-                if(highestSV(target) > 20) {
-                    if (nodesOfInterest == -1 && isProbingViable()){
-                        nodesOfInterest = (highestSV(target));
-                        return new AttackerAction(AttackerActionType.PROBE_POINTS, highestSV(target));
-                    }
-                    else {
-                        //for (int interestID : nodesOfInterest)
-                            return new AttackerAction(AttackerActionType.SUPERATTACK, nodesOfInterest);
-                    }
+        } else {
+            //  if (isProbingViable()) {
+            if (highestSV(target) > 20) {
+                if (nodesOfInterest == -1 && isProbingViable()) {
+                    nodesOfInterest = (highestSV(target));
+                    return new AttackerAction(AttackerActionType.PROBE_POINTS, highestSV(target));
+                } else {
+                    //for (int interestID : nodesOfInterest)
+                    return new AttackerAction(AttackerActionType.SUPERATTACK, nodesOfInterest);
                 }
+            }
 
-          //  }
+            //  }
         }
+        if (isProbingInexpensive()) {
+            return new AttackerAction(AttackerActionType.PROBE_POINTS, highestSV(target));
+        }
+
+        return new AttackerAction(AttackerActionType.END_TURN, 0);
+    }
 
 
 
@@ -92,17 +109,17 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
 //		return new AttackerAction(AttackerActionType.ATTACK, nodeID);
 
-        for (int neighborID : getDBNodeIds()) {
-            //Node dbNode = net.getNode(dbNodeID);
-            if (honeyPotExists() && areNodesSimilar(node.getNeighbor(neighborID), node.getNeighbor(neighborID))) {
-
-            }
-        }
+//        for (int neighborID : getDBNodeIds()) {
+//            //Node dbNode = net.getNode(dbNodeID);
+//            if (honeyPotExists() && areNodesSimilar(node.getNeighbor(neighborID), node.getNeighbor(neighborID))) {
+//
+//            }
+//        }
 
 
         //isHoneyProbingViable()) {
         //return new AttackerAction(AttackerActionType.PROBE_HONEYPOT, dbNodeID);
-    }
+    //}
 
 
 
@@ -137,12 +154,14 @@ public class KimTheDestroyerOfPlanets extends Attacker {
     }
 
     public int highestSV(Node current) {
-        if(current.getSv() < current.getNeighbor()) {
-            current = current.getNeighbor();
-            return current.getNodeID();
+        int currentSV = current.getSv();
+        int currentNode = current.getNodeID();
+        if(currentSV < current.neighbor.get(0).getSv()) {
+            currentNode = current.neighbor.get(0).getNodeID();
+            return currentNode;
         }
         else
-            return current.getNodeID();
+            return currentNode;
 
     }
 
