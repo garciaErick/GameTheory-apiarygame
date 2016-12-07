@@ -1,191 +1,180 @@
 package apiaryparty;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class KimTheDestroyerOfPlanets extends Attacker {
 
-    private final static String attackerName = "KimTheDestroyerOfPlanets";
+	private final static String attackerName = "KimTheDestroyerOfPlanets";
 
-    public Random r;
+	public Random r;
+	boolean probedDB;
+	boolean probedHighValueNode;
+	int costSpentInSuperAttacks;
 
-     int nodesOfInterest = -1;
+	/**
+	 * Constructor
+	 * @param defenderName defender's name
+	 * @param graphFile graph to read
+	 */
 
-    /**
-     * Constructor
-     * @param defenderName defender's name
-     * @param graphFile graph to read
-     */
+	/**
+	 * 1) Compare number of actual nodes with nodes in parameters
+	 * if number of actual nodes > nodes in parameters there is probably honeypots
+	 * if probe honeypot is viable (1/4 attacker budget)
+	 * probe honeypot around highest SV values
+	 * 2) Retrieve Strengthening node rate
+	 * if strengthening cost is higher than 1/4 of defender budget
+	 * safe to assume PV is around SV and will consider attack if PV is high
+	 * else
+	 * invest in probe PV is viable
+	 * 3) Attack highest PV within available nodes to reach DB
+	 * if SV +20
+	 * if probe PV is viable
+	 * probe PV if true super attack
+	 * <p>
+	 * GOAL: gain maximum points as possible without falling in honeypot. attempt to get DB.
+	 * <p>
+	 * is database
+	 */
 
-    /**
-     * 1) Compare number of actual nodes with nodes in parameters
-     * if number of actual nodes > nodes in parameters there is probably honeypots
-     * if probe honeypot is viable (1/4 attacker budget)
-     * probe honeypot around highest SV values
-     * 2) Retrieve Strengthening node rate
-     * if strengthening cost is higher than 1/4 of defender budget
-     * safe to assume PV is around SV and will consider attack if PV is high
-     * else
-     * invest in probe PV is viable
-     * 3) Attack highest PV within available nodes to reach DB
-     * if SV +20
-     * if probe PV is viable
-     * probe PV if true super attack
-     * <p>
-     * GOAL: gain maximum points as possible without falling in honeypot. attempt to get DB.
-     *
-     * is database
-     *
-     *
-     */
+	public KimTheDestroyerOfPlanets(String defenderName, String graphFile) {
+		super(attackerName, defenderName, graphFile);
+	}
 
-    public KimTheDestroyerOfPlanets(String defenderName, String graphFile) {
-        super(attackerName, defenderName, graphFile);
-    }
+	public KimTheDestroyerOfPlanets() {
+		super(attackerName);
+	}
 
-    public KimTheDestroyerOfPlanets() {
-        super(attackerName);
-    }
+	protected void initialize() {
+		r = new Random();
+		probedDB = false;
+		probedHighValueNode = false;
+		costSpentInSuperAttacks = 0;
+	}
 
-    protected void initialize() {
-        r = new Random();
-        //nodesOfInterest = 0;
-    }
+	@Override
+	public AttackerAction makeAction() {
+		while (getDBNodeIds().size() != 0 && isSuperAttackViable() && doneDoingSuperAttacks(costSpentInSuperAttacks)) {
+			if (honeyPotExists() && !probedDB) {
+				probedDB = true;
+				return new AttackerAction(AttackerActionType.PROBE_HONEYPOT, getDBNodeIds().get(0));
+			} else if (!net.getNode(getDBNodeIds().get(0)).isHoneyPot()) {
+				probedDB = false;
+				costSpentInSuperAttacks += Parameters.SUPERATTACK_RATE;
+				return new AttackerAction(AttackerActionType.SUPERATTACK, getDBNodeIds().get(0));
+			} else //if it is a honeypot then we will remove it from the list and continue
+				getDBNodeIds().remove(0);
+		}
+		/**
+		 * attack highest value node that is above 1/2 of 20 and less than 3/4 of 20
+		 * because if its higher than 3/4 we might need a super attack or might
+		 * not be worth it
+		 **/
+		//TODO: check if sorting is correct
+		List<Node> availableNodes = net.getAvailableNodes();
+		List<Node> availableNodesSorted = sortNodesDescending(availableNodes);
 
-    @Override
-    public AttackerAction makeAction() {
-        Node node = new Node();
+		for (Node n : availableNodesSorted)
+			if (3 * Parameters.ATTACK_ROLL / 4 >= n.getSv() && n.getSv() >= Parameters.ATTACK_ROLL / 2)
+				return new AttackerAction(AttackerActionType.ATTACK, n.getNodeID());
 
-        if (availableNodes.size() == 0)
-            return new AttackerAction(AttackerActionType.INVALID, 0);
+		for (Node n : availableNodesSorted)
+			if (n.getSv() <= Parameters.ATTACK_ROLL / 2)
+				return new AttackerAction(AttackerActionType.ATTACK, n.getNodeID());
 
-        if (getDBNodeIds().size() == 0 ) { //There are no DB nodes available
-            List<Integer> dbNodeIDs = getDBNodeIds();
-        }
-        else {
-            availableNodes.sor
-        }
+		for (Node n : availableNodesSorted) {
+			if (3 * Parameters.ATTACK_ROLL / 4 <= n.getSv() && doneDoingSuperAttacks(costSpentInSuperAttacks)) {
+				//TODO: also probe for points because maybe it was strengthened and then do a super attack
+				for (Node neighbor : n.getNeighborList()) {
+					if (areNodesSimilar(n, neighbor) && isHoneyProbingViable() && !probedHighValueNode && honeyPotExists()) {
+						probedHighValueNode = true;
+						return new AttackerAction(AttackerActionType.PROBE_HONEYPOT, n.getNodeID());
+					} else if (n.isHoneyPot() && honeyPotExists()) {
+						probedHighValueNode = false;
+						availableNodesSorted.remove(n);
+					} else {
+						//TODO: check if we should or if we have enough budget for a super attack else do a regular attack
+						probedHighValueNode = false;
+						return new AttackerAction(AttackerActionType.SUPERATTACK, n.getNodeID());
+					}
+				}
+			}
+		}
+		return new AttackerAction(AttackerActionType.END_TURN, 0);
+	}
 
-        int nodeID = availableNodes.get(r.nextInt(availableNodes.size())).getNodeID();
-        //TODO: decide which node to attack before evaluating for honeypot
-        Node target = net.getNode();
-        if (honeyPotExists())
-            for (Node n : target.getNeighborList()) {
-                if (areNodesSimilar(target, n))
-                    return new AttackerAction(AttackerActionType.PROBE_HONEYPOT, target.getNodeID());
-            }
-        else
-            return new AttackerAction(AttackerActionType.ATTACK, target.getNodeID());
+	public boolean honeyPotExists() {
+		return (net.getSize() > Parameters.NUMBER_OF_NODES);
+	}
 
-        if (Parameters.STRENGTHEN_RATE >= (Parameters.DEFENDER_BUDGET) / 4) {
-            //TODO
-            return new AttackerAction(AttackerActionType.ATTACK, target.getNodeID());
-        } else {
-            //  if (isProbingViable()) {
-            if (highestSV(target) > 20) {
-                if (nodesOfInterest == -1 && isProbingViable()) {
-                    nodesOfInterest = (highestSV(target));
-                    return new AttackerAction(AttackerActionType.PROBE_POINTS, highestSV(target));
-                } else {
-                    //for (int interestID : nodesOfInterest)
-                    return new AttackerAction(AttackerActionType.SUPERATTACK, nodesOfInterest);
-                }
-            }
+	private boolean isProbingViable() {
+		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_POINTS_RATE;
+	}
 
-            //  }
-        }
-        if (isProbingInexpensive()) {
-            return new AttackerAction(AttackerActionType.PROBE_POINTS, highestSV(target));
-        }
+	private boolean isProbingInexpensive() {
+		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_POINTS_RATE;
+	}
 
-        return new AttackerAction(AttackerActionType.END_TURN, 0);
-    }
+	private boolean isHoneyProbingViable() {
+		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_HONEY_RATE;
+	}
 
+	private boolean isHoneyProbingInexpensive() {
+		return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_HONEY_RATE;
+	}
 
+	private boolean isSuperAttackViable() {
+		return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.SUPERATTACK_RATE;
+	}
 
+	private boolean doneDoingSuperAttacks(int costSpentInSuperAttacks) {
+		return Parameters.ATTACKER_BUDGET / 4 == costSpentInSuperAttacks || (Parameters.ATTACKER_BUDGET / 4) % costSpentInSuperAttacks < Parameters.SUPERATTACK_RATE;
+	}
 
+	private List<Integer> getDBNodeIds() {
+		List<Integer> dbNodeIds = new ArrayList<>();
+		for (Node n : net.getNodes())
+			if (n.isDatabase())
+				dbNodeIds.add(n.getNodeID());
+		return dbNodeIds;
+	}
 
-//		return new AttackerAction(AttackerActionType.ATTACK, nodeID);
+	public int highestSV(Node current) {
+		int currentSV = current.getSv();
+		int currentNodeID = current.getNodeID();
+		if (currentSV < current.neighbor.get(0).getSv()) {
+			currentNodeID = current.neighbor.get(0).getNodeID();
+			return currentNodeID;
+		} else
+			return currentNodeID;
 
-//        for (int neighborID : getDBNodeIds()) {
-//            //Node dbNode = net.getNode(dbNodeID);
-//            if (honeyPotExists() && areNodesSimilar(node.getNeighbor(neighborID), node.getNeighbor(neighborID))) {
-//
-//            }
-//        }
+	}
 
+	private ArrayList<Node> getNeighborList(Node current) {
+		return current.getNeighborList();
+	}
 
-        //isHoneyProbingViable()) {
-        //return new AttackerAction(AttackerActionType.PROBE_HONEYPOT, dbNodeID);
-    //}
+	private boolean areNodesSimilar(Node source, Node neighbor) {
+		double division = source.getSv() / neighbor.getSv();
+		double percentage = 0.00;
+		percentage = division > 1 ? division - 1 : 1 - division;
+		return percentage <= 0.25; //threshold
+	}
 
+	//TODO: check if its correct :P
+	private List<Node> sortNodesDescending(List<Node> nodeList) {
+		Collections.sort(nodeList, (n1, n2) -> {
+			Integer sv1 = n1.getSv();
+			Integer sv2 = n2.getSv();
+			return sv1.compareTo(sv2);
+		});
+		return nodeList;
+	}
 
-
-    public boolean honeyPotExists() {
-        return (net.getSize() > Parameters.NUMBER_OF_NODES);
-    }
-
-    private boolean isProbingViable() {
-        return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_POINTS_RATE;
-    }
-
-    private boolean isProbingInexpensive() {
-        return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_POINTS_RATE;
-    }
-
-    private boolean isHoneyProbingViable() {
-        return (Parameters.ATTACKER_BUDGET / 4) >= Parameters.PROBE_HONEY_RATE;
-    }
-
-    private boolean isHoneyProbingInexpensive() {
-        return (Parameters.ATTACKER_BUDGET / 14) <= Parameters.PROBE_HONEY_RATE;
-    }
-
-
-    private List<Integer> getDBNodeIds() {
-        List<Integer> dbNodeIds = new ArrayList<>();
-        for (Node n : net.getNodes()) {
-            if (n.isDatabase())
-                dbNodeIds.add(n.getNodeID());
-        }
-        return dbNodeIds;
-    }
-
-    public int highestSV(Node current) {
-        int currentSV = current.getSv();
-        int currentNode = current.getNodeID();
-        if(currentSV < current.neighbor.get(0).getSv()) {
-            currentNode = current.neighbor.get(0).getNodeID();
-            return currentNode;
-        }
-        else
-            return currentNode;
-
-    }
-
-    private ArrayList<Node> getNeighborList(Node current) {
-        return current.getNeighborList();
-    }
-
-    public boolean areNodesSimilar(Node source, Node neighbor) {
-        double division = source.getSv() / neighbor.getSv();
-        double percentage = 0.00;
-        percentage = division > 1 ? division - 1 : 1 - division;
-
-        //threshold
-        return percentage <= 0.25;
-
-
-    }
-
-    @Override
-    protected void result(Node lastNode) {
-        // TODO Auto-generated method stub
-
-    }
-
-
+	@Override
+	protected void result(Node lastNode) {
+		// TODO Auto-generated method stub
+	}
 }
 

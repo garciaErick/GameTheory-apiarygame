@@ -81,7 +81,6 @@ public class DaiGurrenLagan extends Defender {
 		}
 		return dbNodeIds;
 	}
-
 	private List<Integer> getValueableNodeIDs() {
 		List<Integer> valuableNodeIDs = new ArrayList<>();
 		for (Node n : net.getNodes()) {
@@ -91,12 +90,6 @@ public class DaiGurrenLagan extends Defender {
 		return valuableNodeIDs;
 	}
 
-	/**
-	 * if the honeypot rate is less than budget/4 than inserting a
-	 * honeypot is viable
-	 *
-	 * @return true if is viable
-	 */
 	private boolean isHoneyPotViable() {
 		return (Parameters.DEFENDER_BUDGET / 4) >= Parameters.HONEYPOT_RATE;
 	}

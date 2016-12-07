@@ -30,6 +30,7 @@ public class GameMaster {
 		defenders.add(new WorkerBee("0"));
 		defenders.add(new Honeycomb("0"));
 		defenders.add(new QueenDBee("0"));
+		defenders.add(new DaiGurrenLagan("0"));
 
 		// get names of defenders
 		String[] defenderNames = new String[defenders.size()];
@@ -75,10 +76,11 @@ public class GameMaster {
 		
 		// add Attackers here
 		ArrayList<Attacker> attackers = new ArrayList<Attacker>();
-		attackers.add(new GreenHornet());
-		attackers.add(new BumbleBeeMan());
-		attackers.add(new Beedrill());
-		attackers.add(new YellowJacket());
+//		attackers.add(new GreenHornet());
+//		attackers.add(new BumbleBeeMan());
+//		attackers.add(new Beedrill());
+//		attackers.add(new YellowJacket());
+		attackers.add(new KimTheDestroyerOfPlanets());
 
 		// get names of attackers
 		String[] attackerNames = new String[attackers.size()];
@@ -148,6 +150,8 @@ public class GameMaster {
 			return new Honeycomb(file);
 		if (name.equalsIgnoreCase("QeenDBee"))
 			return new QueenDBee(file);
+		if (name.equalsIgnoreCase("DaiGurrenLagan"))
+			return new DaiGurrenLagan(file);
 		// add your defender
 
 		// invalid defender if name could not be found
@@ -181,6 +185,8 @@ public class GameMaster {
 			return new Beedrill(defName, file);
 		if (atName.equalsIgnoreCase("apiaryparty.YellowJacket"))
 			return new YellowJacket(defName, file);
+		if (atName.equalsIgnoreCase("KimTheDestroyerOfPlanets"))
+			return new GreenHornet(defName, file);
 
 		// add your attacker here
 
