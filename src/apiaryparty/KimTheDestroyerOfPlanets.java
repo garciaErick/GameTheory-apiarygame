@@ -11,7 +11,7 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
     public Random r;
 
-    List<Integer> nodesOfInterest;
+     int nodesOfInterest = -1;
 
     /**
      * Constructor
@@ -47,7 +47,7 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
     protected void initialize() {
         r = new Random();
-        nodesOfInterest = new List<Integer>();
+        //nodesOfInterest = 0;
     }
 
     @Override
@@ -73,13 +73,13 @@ public class KimTheDestroyerOfPlanets extends Attacker {
         else {
           //  if (isProbingViable()) {
                 if(highestSV(target) > 20) {
-                    if (nodesOfInterest.isEmpty() && isProbingViable()){
-                        nodesOfInterest.add(highestSV(target));
+                    if (nodesOfInterest == -1 && isProbingViable()){
+                        nodesOfInterest = (highestSV(target));
                         return new AttackerAction(AttackerActionType.PROBE_POINTS, highestSV(target));
                     }
                     else {
-                        for (int interestID : nodesOfInterest)
-                            return new AttackerAction(AttackerActionType.SUPERATTACK, interestID);
+                        //for (int interestID : nodesOfInterest)
+                            return new AttackerAction(AttackerActionType.SUPERATTACK, nodesOfInterest);
                     }
                 }
 
@@ -94,7 +94,7 @@ public class KimTheDestroyerOfPlanets extends Attacker {
 
         for (int neighborID : getDBNodeIds()) {
             //Node dbNode = net.getNode(dbNodeID);
-            if (honeyPotExists() && areNodesSimilar(node.getNeighbor(neighborID), node.getNeighbor(neighborID)) {
+            if (honeyPotExists() && areNodesSimilar(node.getNeighbor(neighborID), node.getNeighbor(neighborID))) {
 
             }
         }
@@ -105,11 +105,9 @@ public class KimTheDestroyerOfPlanets extends Attacker {
     }
 
 
-}
-
 
     public boolean honeyPotExists() {
-        return net.getSize() > Parameters.NUMBER_OF_NODES;
+        return (net.getSize() > Parameters.NUMBER_OF_NODES);
     }
 
     private boolean isProbingViable() {
@@ -139,8 +137,8 @@ public class KimTheDestroyerOfPlanets extends Attacker {
     }
 
     public int highestSV(Node current) {
-        if(current.getSv() < current.getNeighbor().getSv()) {
-            current = current.getNeighbor().getNodeID();
+        if(current.getSv() < current.getNeighbor()) {
+            current = current.getNeighbor();
             return current.getNodeID();
         }
         else
@@ -168,4 +166,7 @@ public class KimTheDestroyerOfPlanets extends Attacker {
         // TODO Auto-generated method stub
 
     }
+
+
 }
+
